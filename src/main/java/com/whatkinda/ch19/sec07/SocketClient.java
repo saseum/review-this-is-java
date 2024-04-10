@@ -1,6 +1,5 @@
 package com.whatkinda.ch19.sec07;
 
-import lombok.Getter;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -10,16 +9,12 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class SocketClient {
-    private ChatServer chatServer;
-    private Socket socket;
-    private DataInputStream dis;
-    private DataOutputStream dos;
-
-    @Getter
-    private String clientIp;
-
-    @Getter
-    private String chatName;
+    ChatServer chatServer;
+    Socket socket;
+    DataInputStream dis;
+    DataOutputStream dos;
+    String clientIp;
+    String chatName;
 
     public SocketClient(ChatServer chatServer, Socket socket) {
         try {
@@ -50,7 +45,7 @@ public class SocketClient {
                         case "incoming" -> {
                             this.chatName = jsonObject.getString("data");
                             chatServer.sendToAll(this, "들어오셨습니다.");
-                            chatServer.addSocket(this);
+                            chatServer.addSocketClient(this);
                             break;
                         }
                         case "message" -> {
